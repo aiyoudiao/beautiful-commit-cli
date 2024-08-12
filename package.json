@@ -1,6 +1,6 @@
 {
   "name": "beautiful-commit-cli",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "写一个给项目添加美丽的commit的脚手架工具，让项目的 提交 和 变更日志 更加舒服。Create a cli tool to add beautiful commits to a project, making the commit and change log more comfortable.",
   "main": "index.js",
   "bin": {
@@ -10,7 +10,8 @@
     "start": "node index.js",
     "commit": "git-cz",
     "changelog": "conventional-changelog --config ./templates/commit-config/cz-config.js -p angular -i -o CHANGELOG.md -r 0",
-    "version": "conventional-changelog --config ./templates/commit-config/cz-config.js -p angular -i -o CHANGELOG.md && git add CHANGELOG.md"
+    "version": "conventional-changelog --config ./templates/commit-config/cz-config.js -p angular -i -o CHANGELOG.md && git add CHANGELOG.md",
+    "release": "standard-version"
   },
   "author": "aiyoudiao",
   "license": "MIT",
@@ -24,9 +25,10 @@
     "semver": "^7.3.5"
   },
   "devDependencies": {
-    "cz-git": "^1.9.4",
     "commitizen": "^4.3.0",
-    "conventional-changelog-cli": "^5.0.0"
+    "conventional-changelog-cli": "^5.0.0",
+    "cz-git": "^1.9.4",
+    "standard-version": "^9.5.0"
   },
   "config": {
     "commitizen": {
