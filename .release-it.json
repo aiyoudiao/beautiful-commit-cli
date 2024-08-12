@@ -8,5 +8,8 @@
   },
   "github": {
     "release": false
+  },
+  "hooks": {
+    "before:git:bump": "yarn changelog"
   }
 }

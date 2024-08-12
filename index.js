@@ -9,7 +9,7 @@ const ora = require("ora");
 const semver = require("semver");
 const { version } = require("./package.json");
 
-const { dependencies, scripts, config } = require("./config");
+const { dependencies, scripts, config, copyFiles } = require("./config");
 const { copyDirectoryWithOverwrite } = require("./tools/utils");
 
 // 支持的语言
@@ -28,13 +28,23 @@ if (!semver.satisfies(process.version, REQUIRED_NODE_VERSION)) {
 
 program
   .version(version)
-  .argument("<projectPath>", "Path to the target project / 目标项目的路径")
+  .option(
+    "-p, --project-path <path>",
+    "Path to the target project / 目标项目的路径"
+  )
+  .action((options) => {
+    if (!options.projectPath) {
+      console.error("Error: Project path is required.");
+      process.exit(1);
+    }
+    console.log(`Processing project at path: ${options.projectPath}`);
+  })
   .option("-l, --lang <language>", "Language for messages / 消息语言", "en")
-  .action(async (projectPath, options) => {
+  .action(async (options) => {
     const lang = options.lang === "zh_CN.UTF-8" ? "zh" : "en";
     const t = (key) => languages[lang][key];
 
-    const targetPath = path.resolve(projectPath);
+    const targetPath = path.resolve(options.projectPath);
     const packageJsonPath = path.join(targetPath, "package.json");
 
     // 检查 package.json 是否存在
@@ -58,11 +68,11 @@ program
       if (
         !packageJson.devDependencies ||
         !packageJson.devDependencies[dep] ||
-        !semver.satisfies(packageJson.devDependencies[dep], version)
+        packageJson.devDependencies[dep] !== version
       ) {
         spinner.start(`${t("installing")} ${dep}@${version}...`);
         try {
-          execSync(`npm install ${dep}@${version}`, {
+          execSync(`npm install -D ${dep}@${version}`, {
             stdio: "inherit",
             cwd: targetPath,
           });
@@ -112,7 +122,7 @@ program
     // 检查并复制目录和文件
     const filesToCopy = copyFiles.reduce((prev, cur) => {
       const { src, dest } = cur;
-      cur.push({
+      prev.push({
         src: path.join(
           __dirname,
           src[0] || "templates",
@@ -121,7 +131,7 @@ program
         dest: path.join(targetPath, dest || "commit-config"),
       });
 
-      return cur;
+      return prev;
     }, []);
 
     for (const file of filesToCopy) {

@@ -9,8 +9,8 @@
   "scripts": {
     "start": "node index.js",
     "commit": "git-cz",
-    "changelog": "conventional-changelog --config ./templates/commit-config/cz-config.js -p angular -i -o CHANGELOG.md -r 0",
-    "version": "conventional-changelog --config ./templates/commit-config/cz-config.js -p angular -i -o CHANGELOG.md && git add CHANGELOG.md",
+    "changelog": "conventional-changelog --config ./templates/commit-config/changelog-config.js -p  -i -o CHANGELOG.md -r 0",
+    "version": "conventional-changelog --config ./templates/commit-config/changelog-config.js -p angular -i -o CHANGELOG.md  -r 0 && git add CHANGELOG.md",
     "release": "release-it"
   },
   "author": "aiyoudiao",
@@ -28,7 +28,7 @@
     "commitizen": "^4.3.0",
     "conventional-changelog-cli": "^5.0.0",
     "cz-git": "^1.9.4",
-    "release-it": "^17.6.0"
+    "release-it": "^16.3.0"
   },
   "config": {
     "commitizen": {
