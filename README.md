@@ -11,7 +11,7 @@ Create a cli tool to add beautiful commits to a project, making the commit and c
 npm install -g beautiful-commit-cli
 
 # --lang zh_CN.UTF-8 表示中文，如果不传则默认为英文
-beautiful -p /path/to/your/project --lang zh_CN.UTF-8
+beautiful --project-path /path/to/your/project --lang zh_CN.UTF-8
 ```
 
 ## reference

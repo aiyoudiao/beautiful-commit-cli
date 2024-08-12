@@ -66,4 +66,20 @@ async function copyDirectoryWithOverwrite(srcDir, destDir, t) {
   copyDirectory(srcDir, destDir);
 }
 
-module.exports = { copyDirectoryWithOverwrite };
+
+    // 检查包管理工具
+function detectPackageManager(targetPath) {
+      if (fs.existsSync(path.join(targetPath, "pnpm-lock.yaml"))) {
+        return "pnpm";
+      } else if (fs.existsSync(path.join(targetPath, "yarn.lock"))) {
+        return "yarn";
+      } else if (fs.existsSync(path.join(targetPath, "package-lock.json"))) {
+        return "npm";
+      } else {
+        // 默认使用 npm
+        return "npm";
+      }
+    }
+
+
+module.exports = { copyDirectoryWithOverwrite, detectPackageManager };

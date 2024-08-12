@@ -32,3 +32,9 @@ exports.copyFiles = [
   //     dest: "fileOne.js",
   // },
 ];
+
+exports.installCommands = {
+  pnpm: "pnpm install",
+  yarn: "yarn install",
+  npm: "npm install",
+};

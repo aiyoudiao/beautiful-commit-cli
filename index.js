@@ -9,8 +9,17 @@ const ora = require("ora");
 const semver = require("semver");
 const { version } = require("./package.json");
 
-const { dependencies, scripts, config, copyFiles } = require("./config");
-const { copyDirectoryWithOverwrite } = require("./tools/utils");
+const {
+  dependencies,
+  scripts,
+  config,
+  copyFiles,
+  installCommands,
+} = require("./config");
+const {
+  copyDirectoryWithOverwrite,
+  detectPackageManager,
+} = require("./tools/utils");
 
 // 支持的语言
 const languages = {
@@ -62,26 +71,52 @@ program
     }
 
     const spinner = ora();
-
+    let isInstall = false;
     // 检查并安装依赖
+    packageJson.devDependencies = packageJson.devDependencies || {};
     for (const [dep, version] of Object.entries(dependencies)) {
       if (
         !packageJson.devDependencies ||
         !packageJson.devDependencies[dep] ||
         packageJson.devDependencies[dep] !== version
       ) {
-        spinner.start(`${t("installing")} ${dep}@${version}...`);
-        try {
-          execSync(`npm install -D ${dep}@${version}`, {
-            stdio: "inherit",
-            cwd: targetPath,
-          });
-          spinner.succeed(`${t("installed")} ${dep}@${version}`);
-        } catch (error) {
-          spinner.fail(`${t("failedToInstall")} ${dep}@${version}`);
-          console.error(error);
-        }
+        packageJson.devDependencies[dep] = version;
+        spinner.info(
+          `${t("adding")} ${dep}@${version} ${t("toDevDependencies")}`
+        );
+        isInstall = true;
       }
+    }
+
+    if (isInstall) {
+      // 打印输出添加依赖完毕
+      spinner.succeed(t("dependenciesAdded"));
+      // 打印正在检查包管理工具
+      spinner.start(t("checkingPackageManager"));
+      // 写回 package.json 文件
+      fs.writeFileSync(packageJsonPath, JSON.stringify(packageJson, null, 2));
+      const packageTool = detectPackageManager(targetPath);
+      const installCommand = installCommands[packageTool];
+
+      // 打印targetPath项目的包管理工具为 NPM/YARN/PNPM
+      spinner.succeed(
+        `${t("packageManagerDetected")}: ${chalk.green(
+          packageTool.toUpperCase()
+        )}`
+      );
+
+      spinner.info(`${t("installingDependencies")}...`);
+      spinner.start(`${t("installingDependencies")}...`);
+      try {
+        execSync(installCommand, { stdio: "inherit", cwd: targetPath });
+        spinner.succeed(`${t("dependenciesInstalledSuccessfully")}`);
+      } catch (error) {
+        spinner.fail(`${t("failedToInstallDependencies")}`);
+        console.error(error);
+        console.log(`${t("pleaseInstallManually")}: ${installCommand}`);
+      }
+
+      isInstall = false;
     }
 
     // 检查并添加脚本
@@ -142,7 +177,7 @@ program
       }
     }
 
-    console.log(chalk.green(t("allDone")));
+    spinner.succeed(t("allDone"));
   });
 
 program.parse(process.argv);
