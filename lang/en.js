@@ -24,4 +24,5 @@ module.exports = {
   dependenciesAdded: "Dependencies added successfully",
   checkingPackageManager: "Checking package manager...",
   packageManagerDetected: "Package manager detected",
+  to: "to",
 };
