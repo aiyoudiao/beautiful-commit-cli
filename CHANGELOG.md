@@ -1,4 +1,18 @@
+# 1.4.0 (2024-08-12)
+
+
+### 📝 Documentation | 文档
+
+* 添加使用说明和图例 。| [Review:(76e7362)](https://github.com/aiyoudiao/beautiful-commit-cli/commit/76e736272171c4e31c61205449b7ea9766723524?view=parallel)
+
+
+
 ## 1.3.1 (2024-08-12)
+
+
+### 🎫 Chores | 其他更新
+
+* release 1.3.1 。| [Review:(254925c)](https://github.com/aiyoudiao/beautiful-commit-cli/commit/254925c7fc2bd0702e860991fcd53d79af07a41a?view=parallel)
 
 
 ### 🐛 Bug Fixes | Bug 修复
