@@ -1,4 +1,18 @@
+# 1.3.0 (2024-08-12)
+
+
+### ✨ Features | 新功能
+
+* 添加国际化，外加多种包管理工具的支持。 。| [Review:(9469e3c)](https://github.com/aiyoudiao/beautiful-commit-cli/-/commit/9469e3c2fc9cb4f5718b73cc6e77d9e0aba5be02?view=parallel)
+
+
+
 # 1.2.0 (2024-08-12)
+
+
+### 🎫 Chores | 其他更新
+
+* release 1.2.0 。| [Review:(8bd9507)](https://github.com/aiyoudiao/beautiful-commit-cli/-/commit/8bd9507f82ec154ebee7bc20a5946d5870462099?view=parallel)
 
 
 ### 👷‍ Build System | 构建
