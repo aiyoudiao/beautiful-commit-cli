@@ -4,9 +4,10 @@ const fs = require("fs-extra");
 const path = require("path");
 const { execSync } = require("child_process");
 const chalk = require("chalk");
-const { Command } = require("commander");
+const { program } = require("commander");
 const ora = require("ora");
 const semver = require("semver");
+const { version } = require("./package.json");
 
 const { dependencies, scripts, config } = require("./config");
 const { copyDirectoryWithOverwrite } = require("./tools/utils");
@@ -17,7 +18,6 @@ const languages = {
   zh: require("./lang/zh"),
 };
 
-const program = new Command();
 const REQUIRED_NODE_VERSION = ">=14.0.0";
 
 // 检查 Node.js 版本
@@ -27,7 +27,7 @@ if (!semver.satisfies(process.version, REQUIRED_NODE_VERSION)) {
 }
 
 program
-  .version("1.0.0")
+  .version(version)
   .argument("<projectPath>", "Path to the target project / 目标项目的路径")
   .option("-l, --lang <language>", "Language for messages / 消息语言", "en")
   .action(async (projectPath, options) => {

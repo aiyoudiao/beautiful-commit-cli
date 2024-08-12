@@ -9,8 +9,8 @@
   "scripts": {
     "start": "node index.js",
     "commit": "git-cz",
-    "changelog": "conventional-changelog --config ./commit-config/changelog-config.js -p angular -i -o CHANGELOG.md -r 1",
-    "version": "conventional-changelog --config ./commit-config/changelog-config.js -p angular -i -o CHANGELOG.md && git add CHANGELOG.md"
+    "changelog": "conventional-changelog --config ./templates/commit-config/cz-config.js -p angular -i -o CHANGELOG.md -r 0",
+    "version": "conventional-changelog --config ./templates/commit-config/cz-config.js -p angular -i -o CHANGELOG.md && git add CHANGELOG.md"
   },
   "author": "aiyoudiao",
   "license": "MIT",
