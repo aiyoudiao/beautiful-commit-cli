@@ -1,3 +1,12 @@
+# 1.2.0 (2024-08-12)
+
+
+### 👷‍ Build System | 构建
+
+* 完成集成测试，修复运行时的缺陷 。| [Review:(ff2a175)](https://github.com/aiyoudiao/beautiful-commit-cli/-/commit/ff2a1758846fe045ab806242fa8642ff4e12e6ab?view=parallel)
+
+
+
 # 1.1.0 (2024-08-12)
 
 
