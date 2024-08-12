@@ -1,6 +1,6 @@
 {
   "name": "beautiful-commit-cli",
-  "version": "1.3.0",
+  "version": "1.3.1",
   "description": "写一个给项目添加美丽的commit的脚手架工具，让项目的 提交 和 变更日志 更加舒服。Create a cli tool to add beautiful commits to a project, making the commit and change log more comfortable.",
   "main": "index.js",
   "bin": {
